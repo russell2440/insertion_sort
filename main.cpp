@@ -1,15 +1,25 @@
 #include <iostream>
 #include <vector>
 #include <list>
-//#include "~/doublelinkedlist/double_linked_list.h"
 
-const int numbers[] = {99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0};
 
 void insertion_sort(const int *pinput, const int *pend){
-  //double_linked_list dll(input,length);
+  // Construct list from input
   std::list<int> input(pinput, pend);
-  for (std::list<int>::iterator it = input.begin(); it != input.end(); it++){
-    printf("%d ",*it);
+
+  // current working element loop
+  for (std::list<int>::iterator cwit = input.begin(); cwit != input.end(); cwit++){
+    // search loop
+    for (std::list<int>::iterator sit = input.begin(); sit != cwit; sit++){
+      if(*cwit < *sit){
+        input.splice(sit, input, cwit);   
+        break;
+      }
+    }
+  }
+
+  for (std::list<int>::iterator cwit = input.begin(); cwit != input.end(); cwit++){
+    printf(" %d",*cwit);
   }
   
 }
@@ -17,8 +27,10 @@ void insertion_sort(const int *pinput, const int *pend){
 //console.log(numbers);
 
 int main() {
+  const int numbers[] = {99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0};
   void insertion_sort(const int *pinput, const int *pend);
-  std::cout << "Hello World!\n";
-  insertion_sort(numbers, numbers+(sizeof(numbers)/sizeof(*numbers)));
 
+  std::cout << "Hello Russ! insert_sort() test\n";
+
+  insertion_sort(numbers, numbers+(sizeof(numbers)/sizeof(*numbers)));
 }
